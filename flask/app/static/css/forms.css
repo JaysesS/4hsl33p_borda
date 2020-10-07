@@ -1,0 +1,9 @@
+.danger {
+    background-color: #ad44c0;
+    color: white;
+}
+
+.success {
+    background-color: #880e4f !important;
+    color: white;
+}

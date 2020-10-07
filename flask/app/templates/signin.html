@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/forms.css')}}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h1>Login</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <form method="POST" action="/signin" >
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {{ signin.username(placeholder="username", class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        {{ signin.password(placeholder="password", class="form-control") }}
+                    </div>
+                    <div class="form-check">
+                        {{ signin.remember(class="form-check-input") }}
+                        <label class="form-check-label" for="remember">Remember me</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-purple btn-block">Login</button>
+                    </div>
+                    <div class="form-group">
+                        {% set errors = signin.errors %}
+                        {% for key, value in errors.items() %}
+                            <div class="alert danger" role="alert">
+                                <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ value[0] }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                  </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-5">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'danger' %}
+                            <div class="alert danger" role="alert">
+                                <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ message }}
+                            </div>
+                        {% elif category == 'success' %}
+                            <div class="alert success" role="alert">
+                                <i class="fas fa-check-circle mr-2" aria-hidden="true"></i>{{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <p><a href="{{ url_for('signup') }}">You are not registered?</a></p> 
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+username:        Jayse        | telegram:       @Jaysess      | score:    180    | task count:   4   
+
+username:        Yosum        | telegram:        @yosum       | score:     30    | task count:   2   
+
+username:         Test        | telegram:        @soniq       | score:     20    | task count:   1   
+
+username:        Koban        | telegram:        @koban       | score:     0     | task count:   0   
+
+username:        Qwerty       | telegram:        @gidra       | score:     0     | task count:   0   
+

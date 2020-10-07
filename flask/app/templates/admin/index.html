@@ -1,0 +1,37 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col"><h1>Nav:</h1>
+                <h2><a href="/tasks">Go to tasks</a></h2>
+                <h2><a href="/score">Go to score</a></h2>
+                <h2><a href="/logout">Logout</a></h2>
+            </div>
+            <div class="col">
+                <h1>Task manage:</h1>
+                <h2><a href="/tasks_manage/update" style="color: rgb(28, 160, 28);">Add or Update tasks</a></h2>
+                <h2><a href="/tasks_manage/open_all" style="color: rgb(28, 160, 28);">Open all tasks</a></h2>
+                <h2><a href="/tasks_manage/hide_all" style="color: rgb(220, 200, 20);">Hide all tasks</a></h2>
+                <h2><a href="/tasks_manage/refill" style="color: crimson;">Refill tasks</a></h2>
+            </div>
+            <div class="col">
+                <h1>Get info:</h1>
+                <h2><a href="/send_info" style="color: rgb(28, 160, 28);">Get info</a></h2>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<style>
+    .row {
+        display: inline-flex;
+    }
+
+    .col {
+        margin-left: 5vw;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,16 @@
+.task {
+    background-color: rgba(156,39,176, .1);
+    border-radius: 10px;
+    margin-top: 2vh;
+}
+
+.category {
+    background-color: rgba(106, 27, 154);;
+    border-radius: 10px;
+    margin-top: 2vh;
+    color: white;
+}
+
+.success {
+    background-color: #880e4f !important;
+}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/forms.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <h1>Register</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <form method="POST" action="/signup" >
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    {{ signup.username(placeholder="username", class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    {{ signup.password(placeholder="password", class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="password">Telegram</label>
+                    {{ signup.telegram(placeholder="@telegram", class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-purple btn-block">Register</button>
+                </div>
+                <div class="form-group">
+                    {% set errors = signup.errors %}
+                    {% for key, value in errors.items() %}
+                        <div class="alert danger" role="alert">
+                            <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ value[0] }}
+                        </div>
+                    {% endfor %}
+                </div>
+              </form>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                        <div class="alert danger" role="alert">
+                            <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ messages[0] }}
+                        </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}

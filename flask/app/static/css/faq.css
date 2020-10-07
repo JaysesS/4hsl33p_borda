@@ -1,0 +1,14 @@
+.question {
+    background-color: #ad44c0 !important;
+    border-color: #ad44c0 !important;
+    color: white;
+}
+
+.answer {
+    background-color: #ecd4f0 !important;
+    border-color: #ecd4f0 !important;
+}
+
+.item {
+    margin-left: 5vw;
+}

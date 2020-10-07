@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/faq.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <h1>FAQ</h1>
+    </div>
+    <div class="row mt-2">
+        <div class="col-7">
+            <div class="row"><h3>Q/A:</h3></div>
+            <div class="row item">
+                <div class="col">
+                    <ul class="list-group ml-4">
+                        {% for count, data in QA.items() %}
+                            {% if count == "1" %}
+                                <ul class="list-group">
+                            {% else %}
+                                <ul class="list-group mt-2">
+                            {% endif %}
+                                    <li class="list-group-item active question">
+                                        <div class="md-v-line"></div>
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <i class="fas fa-question-circle mr-4"></i>
+                                            </div>
+                                            <div class="col">
+                                                {{ data["q"] }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item answer">
+                                        <div class="md-v-line">
+                                            <div class="row">
+                                                <div class="col-sm-1">
+                                                    <i class="fas fa-check-circle mr-4"></i>
+                                                </div>
+                                                <div class="col">
+                                                    {{ data["a"] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-2"><h3>TOOLS:</h3></div>
+            <div class="row item">
+                <div class="col">
+                    {% for category, data in TOOL.items() %}
+                        <ul class="list-group mt-2 ml-4">
+                            <ul class="list-group">
+                                <li class="list-group-item active question">
+                                    <div class="md-v-line"></div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <i class="fas fa-question-circle mr-4 pr-3"></i>
+                                        </div>
+                                        <div class="col">
+                                            {{ category }}
+                                        </div>
+                                    </div>
+                                </li>
+                                {% for tool in data %}
+                                    <li class="list-group-item answer">
+                                        <div class="md-v-line"></div>
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <i class="fas fa-check-circle mr-5"></i>
+                                            </div>
+                                            <div class="col">
+                                                {{ tool }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </ul>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mt-2 "><h3>LINKS:</h3></div>
+            <div class="row item">
+                <div class="col">
+                    <ul class="list-group mt-2 ml-4">
+                        <ul class="list-group">
+                            <li class="list-group-item answer">
+                                <div class="md-v-line"></div><i class="fas fa-info-circle mr-5"></i><a href="https://vk.com/gumrf_ctf">VK</a>
+                            </li>
+                            <li class="list-group-item answer">
+                                <div class="md-v-line"></div><i class="fas fa-info-circle mr-5"></i><a href="https://ctftime.org/team/119721">CTFTIME</a>
+                            </li>
+                            <li class="list-group-item answer">
+                                <div class="md-v-line"></div><i class="fas fa-info-circle mr-5"></i><a href="https://t.me/JayseSs">Main smesharik</a>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

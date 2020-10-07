@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}YA UPAL{% endblock %}
+
+{% block content %}
+<h1>CSRF YPAL... НО ОН ОБЯЗАТЕЛЬНО ВЫЖИВЕТ</h1>
+{{ reason }}
+<img src="{{url_for('static', filename='img/anima.jpg')}}" width="450" height="450">
+{% endblock %}

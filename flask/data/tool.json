@@ -1,0 +1,58 @@
+{ 
+    "Web": [
+        "BurpSuite",
+        "SQLMap",
+        "Postman",
+        "Nmap",
+        "Nikto",
+        "Python"
+    ],
+    
+    "Crypto": [
+        "SageMath",
+        "RSAtool",
+        "CyberChef (web)",
+        "Boxentriq Code breaking (web)",
+        "Python lib numpy, z3 and etc."
+    ],
+        
+    "Reverse": [
+        "IDA",
+        "Radare2/Cutter",
+        "GDB",
+        "ApkTool (mobile)",
+        "Jadx-gui (mobile)",
+        "Bytecode Viewer (mobile)",
+        "JEB (mobile)"
+    ],
+
+    "Forensic": [
+        "Wireshark",
+        "tshark (CLI network protocol analyzer)",
+        "010 hex editor",
+        "Binwalk",
+        "ffmpeg",
+        "Audacity",
+        "GBS",
+        "Steghide",
+        "Zsteg",
+        "Stegsolve",
+        "foremost (data extract)",
+        "Jeffrey's Image Metadata Viewer (web)",
+        "volatility (box img)",
+        "autopsy (box img)",
+        "r-studio (data recovery)",
+        "ewf (extract *.E01 file)",
+        "bmc-tools-master (extract *.bmc)",
+        "qemu-img (img converter)",
+        "stegolve"
+    ],
+    "Pwd crack": [
+        "Hashcat",
+        "John the reaper"
+    ],
+
+    "Exploit": [
+        "Python lib pwntools"
+    ]
+}

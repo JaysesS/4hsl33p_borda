@@ -1,0 +1,54 @@
+{
+    "data" : [
+        {
+            "name": "Uni Uni",
+            "discription": "\\u0028 \\u3063 \\u25d4 \\u25e1 \\u25d4 \\u0029 \\u3063 \\u2665 \\u0034 \\u0068 \\u0073 \\u006c \\u0033 \\u0033 \\u0070 \\u007b \\u0055 \\u006e \\u0031 \\u0063 \\u0030 \\u0064 \\u0065 \\u005f \\u0031 \\u0073 \\u005f \\u006d \\u0079 \\u005f \\u006c \\u0031\\u0066\\u0065\\u007d \\u2665",
+            "category": "Training — 04.10",
+            "score": "25",
+            "answer": "4hsl33p{Un1c0de_1s_my_l1fe}",
+            "files": "https://gchq.github.io/CyberChef/",
+            "author": "yosum",
+            "view": true
+        },
+        {
+            "name": "More and more",
+            "discription": "4a 5a 44 57 51 36 54 43 49 52 47 58 55 59 32 49 4f 52 32 45 32 53 43 4a 50 4a 4d 44 45 53 4a 51 4d 4e 35 45 34 36 54 47 4b 45 36 54 32 3d 3d 3d",
+            "category": "Training — 04.10",
+            "score": "25",
+            "answer": "4hsl33p{m0r3_b4s3s}",
+            "files": "https://gchq.github.io/CyberChef/",
+            "author": "yosum",
+            "view": true
+        },
+        {
+            "name": "Hash v1",
+            "discription": "437cccdeeea2cccc3d7a014f3605e52355f4eef7e971ae4bb941f30af0a5800b",
+            "category": "Training — 04.10",
+            "score": "25",
+            "answer": "4hsl33p{ilovefrogs}",
+            "files": "https://hashcat.net/wiki/doku.php?id=hashcat",
+            "author": "yosum",
+            "view": true
+        },
+        {
+            "name": "Hash v2",
+            "discription": "<code>>>> salt = 'eW91IGFyZSBjdXJpb3Vz'<br>>>> print(hashlib.md5((salt + password).encode('ascii')).hexdigest())<br>9ec57a05ea84559b5c32907f11deba9b<br>>>> flag = '4hsl33p{' + password + '}'</code>",
+            "category": "Training — 04.10",
+            "score": "25",
+            "answer": "4hsl33p{catscats}",
+            "files": "https://hashcat.net/wiki/doku.php?id=hashcat",
+            "author": "yosum",
+            "view": true
+        },
+        {
+            "name": "Mort",
+            "discription": "John hid the flag! <b>Again!</b> But this time rockyou.txt doesn't break it. It is known that John's favorite book is 'Mort' by Terry Pratchett, and he reads it <i>only in the original</i>.<br><b>Note</b>: the password for the archive is one word without special characters!",
+            "category": "Training — 04.10",
+            "score": "100",
+            "answer": "4hsl33p{m4k1ng_th1ngS_c0mpl1cat3d}",
+            "files": "https://mega.nz/file/FvxkARhT#trh51dkoFf7J-0IKWvAaRd4JHz86Dps7ADYylceSdU0",
+            "author": "yosum",
+            "view": true
+        }
+    ]
+}
