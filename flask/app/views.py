@@ -12,6 +12,8 @@ from .models import db, User, Task, Solve
 from .forms import RegisterForm, LoginForm, FlagForm
 import json, os
 
+from pprint import pprint
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
@@ -71,7 +73,7 @@ def handle_csrf_error(e):
 def before_first_request_func():
     if User.get_user_by_username('Jayse') is None:
         new_user = User(username = 'Jayse', 
-                        password = '***',
+                        password = 'privetpoka',
                         telegram = '@Jaysess',
                         score = 0
                         )
@@ -172,12 +174,25 @@ def send_info():
     else:
         return redirect(url_for('tasks'))
 
+@app.route("/old_tasks")
+@login_required
+def old_tasks():
+    task_data = Task.get_tasks(training=True)
+    if len(task_data) > 1:
+        solves = [solve.task_id for solve in User.get_solves_by_username(current_user.username)]
+        return render_template('tasks.html', TASK_DATA = task_data, solves = solves, view = "all", training = True, empty = False)
+    else:
+        return render_template('tasks.html', TASK_DATA = False, solves = False, view = "all", training = True, empty = True)
+
 @app.route("/tasks")
 @login_required
 def tasks():
     task_data = Task.get_tasks()
-    solves = [solve.task_id for solve in User.get_solves_by_username(current_user.username)]
-    return render_template('tasks.html', TASK_DATA = task_data, solves = solves, view = "all")
+    if len(task_data) > 1:
+        solves = [solve.task_id for solve in User.get_solves_by_username(current_user.username)]
+        return render_template('tasks.html', TASK_DATA = task_data, solves = solves, view = "all", training = False, empty = False)
+    else:
+        return render_template('tasks.html', TASK_DATA = False, solves = False, view = "all", training = False, empty = True)
 
 @app.route('/tasks/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -193,11 +208,14 @@ def view_task(id):
             else:
                 solve = Solve(task_id = id, task_name = task.name, pwner = user)
                 solve.save_to_db()
-                User.update_score_by_username(current_user.username, task.score)
+                if task.training :
+                    User.update_score_by_username(current_user.username, 1)
+                else:
+                    User.update_score_by_username(current_user.username, task.score)
                 flash('Right!', 'success')
         else:
             flash('Incorrect flag..', 'danger')
-    return render_template('tasks.html', task = task, flagform = flagform, view = "one")
+    return render_template('tasks.html', task = task, flagform = flagform, training = task.training, view = "one")
 
 @app.route('/tasks_manage/<string:operation>')
 @login_required
@@ -211,7 +229,7 @@ def tasks_manage(operation):
                     Task.clear_task()
                     User.clear_solves_for_all()
                     for task in tasks:
-                        new_task = Task(task['name'], task['discription'], task['category'], task['score'], task['answer'], task['files'], task['author'], task['view'])
+                        new_task = Task(task['name'], task['discription'], task['category'], task['score'], task['answer'], task['files'], task['author'], task["training"], task['view'])
                         new_task.save_to_db()
                     flash('REFILL done!', 'success')
                 elif operation == 'update':
@@ -223,10 +241,11 @@ def tasks_manage(operation):
                             check.author = task['author']
                             check.view = task['view']
                             check.files = task['files']
+                            check.training = task["training"]
                             check.answer = task['answer']
                             db.session.commit()
                         else:
-                            new_task = Task(task['name'], task['discription'], task['category'], task['score'], task['answer'], task['files'], task['author'], task['view'])
+                            new_task = Task(task['name'], task['discription'], task['category'], task['score'], task['answer'], task['files'], task['author'], task["training"], task['view'])
                             new_task.save_to_db()
                     flash('UPDATE done!', 'success')
         elif operation == 'hide_all' or operation == 'open_all':

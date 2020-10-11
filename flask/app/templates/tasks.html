@@ -9,134 +9,164 @@
 {% endblock %}
 
 {% block content %}
-{% if view == 'all' %}
+{% if empty == true %}
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <h1>Tasks</h1>
-        </div>
-    </div>
-    <div class="container-fluid pr-5 pl-5">
-        {% for data in TASK_DATA %}
-            {% if data['view_category'] == true %}
-                <div class="row category">
-                    <div class="col">
-                        <h2>{{ data['category']|safe }}</h2>
-                    </div>
-                </div>
-                <div class="row justify-content-md-center">
-                    {% for task in data['data'][0] %}
-                        {% if task.view == true %}
-                            <div class="col-md-5 mr-3 task">
-                                <h2>{{ task.name|safe }}</h2>
-                                <h4>Score: {{ task.score }}</h4>
-                                <h4>Solves: {{ task.solves }}</h4>
-                                {% if task.id in solves %}
-                                    <button type="submit" onclick="window.location.href='/tasks/{{ task.id }}'" class="btn btn-unique btn-block">View</button>
-                                {% else %}
-                                    <button type="submit" onclick="window.location.href='/tasks/{{ task.id }}'" class="btn btn-purple btn-block">View</button>
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+            {% if training == true %}
+                <h1>Training tasks</h1>
+            {% else %}
+                <h1>Tasks</h1>
             {% endif %}
-        {% endfor %}
+        </div>
+        <div class="row justify-content-center mt-3">
+            <h2>The competition hasn't started!</h2>
+        </div>
     </div>
 {% else %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <h2>
-                Tasks <strong>/</strong> {{ task.name|safe }}
-            </h2>
+    {% if view == 'all' %}
+        <div class="container mt-5">
+            {% if training == true %}
+                <div class="row justify-content-center">
+                    <h1>Training tasks</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <h3><a href="https://github.com/4hsl33p/writeups_local_ctf">Writeups here</a></h3>
+                </div>
+                <div class="row justify-content-center">
+                    <h5><b><u>ps. Each training task adds 1 point!</u></b></h5>
+                </div>
+            {% else %}
+                <div class="row justify-content-center">
+                    <h1>Tasks</h1>
+                </div>
+            {% endif %}
         </div>
-
-    </div>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col">
-                <div class="row">
-                    <div class="col-3">
-                        <h3><strong>Description: </strong></h3>
+        <div class="container-fluid pr-5 pl-5">
+            {% for data in TASK_DATA %}
+                {% if data['view_category'] == true %}
+                    <div class="row category">
+                        <div class="col">
+                            <h2>{{ data['category']|safe }}</h2>
+                        </div>
                     </div>
-                    <div class="col ml-5">
-                        <h3>{{ task.discription|safe }}</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <h3><strong>Author: </strong></h3>
-                    </div>
-                    <div class="col ml-5">
-                        <h3><a href="https://t.me/{{ task.author }}">@{{ task.author }}</a></h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <h3><strong>Score: </strong></h3>
-                    </div>
-                    <div class="col ml-5">
-                        <h3>{{ task.score }}</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <h3><strong>Solves: </strong></h3>
-                    </div>
-                    <div class="col ml-5">
-                        <h3>{{ task.solves }}</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <h3><strong>Files / Link: </strong></h3>
-                    </div>
-                    <div class="col ml-5">
-                        <h3><a href="{{ task.files }}">Click me</a></h3>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col-5">
-                        <form method="POST" action="/tasks/{{ task.id }}">
-                            <div class="form-group">
-                                {{ flagform.answer(placeholder="4hsl33p{...}", class="form-control") }}
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-purple btn-block">Send</button>
-                            </div>
-                            <div class="form-group">
-                                {% set errors = flagform.errors %}
-                                {% for key, value in errors.items() %}
-                                    <div class="alert danger" role="alert">
-                                        <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ value[0] }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <div class="form-group">
-                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                    {% if messages %}
-                                        {% for category, message in messages %}
-                                            {% if category == 'danger' %}
-                                                <div class="alert danger" role="alert">
-                                                    <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ message }}
-                                                </div>
-                                            {% elif category == 'success' %}
-                                                <div class="alert success" role="alert">
-                                                    <i class="fas fa-check-circle mr-2" aria-hidden="true"></i>{{ message }}
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
+                    <div class="row justify-content-md-center">
+                        {% for task in data['data'][0] %}
+                            {% if task.view == true %}
+                                <div class="col-md-5 mr-3 task">
+                                    <h2>{{ task.name|safe }}</h2>
+                                    <h4>Score: {{ task.score }}</h4>
+                                    <h4>Solves: {{ task.solves }}</h4>
+                                    {% if task.id in solves %}
+                                        <button type="submit" onclick="window.location.href='/tasks/{{ task.id }}'" class="btn btn-unique btn-block">View</button>
+                                    {% else %}
+                                        <button type="submit" onclick="window.location.href='/tasks/{{ task.id }}'" class="btn btn-purple btn-block" data-toggle="modal" data-target="#centralModalSm">View</button>
                                     {% endif %}
-                                {% endwith %}
-                            </div>
-                        </form>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <h2>
+                    Tasks <strong>/</strong> {{ task.name|safe }}
+                </h2>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-3">
+                            <h3><strong>Description: </strong></h3>
+                        </div>
+                        <div class="col ml-5">
+                            <h3>{{ task.discription|safe }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <h3><strong>Author: </strong></h3>
+                        </div>
+                        <div class="col ml-5">
+                            <h3><a href="https://t.me/{{ task.author }}">@{{ task.author }}</a></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <h3><strong>Score: </strong></h3>
+                        </div>
+                        <div class="col ml-5">
+                            <h3>{{ task.score }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <h3><strong>Solves: </strong></h3>
+                        </div>
+                        <div class="col ml-5">
+                            <h3>{{ task.solves }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <h3><strong>Files / Link: </strong></h3>
+                        </div>
+                        <div class="col ml-5">
+                            <h3><a href="{{ task.files }}">Click me</a></h3>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-5">
+                            <form method="POST" action="/tasks/{{ task.id }}">
+                                <div class="form-group">
+                                    {{ flagform.answer(placeholder="4hsl33p{...}", class="form-control") }}
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-purple btn-block">Send</button>
+                                </div>
+                                <div class="form-group">
+                                    {% set errors = flagform.errors %}
+                                    {% for key, value in errors.items() %}
+                                        <div class="alert danger" role="alert">
+                                            <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ value[0] }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group">
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                            {% for category, message in messages %}
+                                                {% if category == 'danger' %}
+                                                    <div class="alert danger" role="alert">
+                                                        <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ message }}
+                                                    </div>
+                                                {% elif category == 'success' %}
+                                                    <div class="alert success" role="alert">
+                                                        <i class="fas fa-check-circle mr-2" aria-hidden="true"></i>{{ message }}
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center mt-3">
+                {% if training == true %}
+                    <button type="button" onclick="window.location.href='/old_tasks'" class="btn btn-purple "><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Back</button>
+                {% else %}
+                    <button type="button" onclick="window.location.href='/tasks'" class="btn btn-purple "><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Back</button>
+                {% endif %}
+            </div>
         </div>
-        <div class="row justify-content-center mt-3">
-            <button type="button" onclick="window.location.href='/tasks'" class="btn btn-purple "><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Back</button>
-        </div>
-    </div>
-
+    {% endif %}
 {% endif %}
 {% endblock %}

@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from operator import itemgetter
 import time
 
+from pprint import pprint
+
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
@@ -149,9 +151,10 @@ class Task(UserMixin, db.Model):
     files = db.Column(db.String(150))
     author = db.Column(db.String(50))
     solves = db.Column(db.Integer)
+    training = db.Column(db.Boolean)
     view = db.Column(db.Boolean)
 
-    def __init__(self, name, discription, category, score, answer, files, author, view):
+    def __init__(self, name, discription, category, score, answer, files, author, training, view):
         self.name = name
         self.discription = discription
         self.category = category
@@ -160,6 +163,7 @@ class Task(UserMixin, db.Model):
         self.files = files
         self.author = author
         self.solves = 0
+        self.training = training
         self.view = view
 
     def save_to_db(self):
@@ -198,7 +202,7 @@ class Task(UserMixin, db.Model):
         return cls.query.all()
 
     @classmethod
-    def get_tasks(cls):
+    def get_tasks(cls, training = False):
         categories = cls.get_all_categories()
         tasks = []
         for category in categories:
@@ -206,14 +210,24 @@ class Task(UserMixin, db.Model):
             tasks_with_category = cls.query.filter_by(category=category).all()
             temp_list_for_category = list()
             for task in tasks_with_category:
-                temp_list_for_category.append({ 
-                                "id": task.id,
-                                "name": task.name,
-                                "score": task.score,
-                                "solves": task.solves,
-                                "view" : task.view,
-                                "author": task.author
-                            })
+                if training and task.training:
+                    temp_list_for_category.append({ 
+                                    "id": task.id,
+                                    "name": task.name,
+                                    "score": task.score,
+                                    "solves": task.solves,
+                                    "view" : task.view,
+                                    "author": task.author
+                                })
+                elif training is False and task.training is False:
+                    temp_list_for_category.append({ 
+                                    "id": task.id,
+                                    "name": task.name,
+                                    "score": task.score,
+                                    "solves": task.solves,
+                                    "view" : task.view,
+                                    "author": task.author
+                                })
             
             task_dict['category'] = category
             task_dict['data'] = list()
@@ -226,4 +240,7 @@ class Task(UserMixin, db.Model):
                 for task in t_tasks:
                     if task['view'] is True:
                         category['view_category'] = True
-        return tasks
+        for category in tasks:
+            if category['view_category'] == True and len(category['data']) != 0:
+                return tasks
+        return []

@@ -1,12 +1,12 @@
 import os
 
 if os.environ.get('APP_DB_HOST') is None:
-    os.environ['APP_DB_HOST'] = "***"
-    os.environ['APP_DB_PASSWORD'] = "***"
+    os.environ['APP_DB_HOST'] = "127.0.0.1"
+    os.environ['APP_DB_PASSWORD'] = "1337"
     
-os.environ['APP_DB_USER'] = "***"
-os.environ['APP_DB_NAME'] = "***"
-os.environ['APP_DB_PORT'] = "***"
+os.environ['APP_DB_USER'] = "jayse"
+os.environ['APP_DB_NAME'] = "borda_db"
+os.environ['APP_DB_PORT'] = "3306"
 
 user = os.environ.get('APP_DB_USER')
 passwd = os.environ.get('APP_DB_PASSWORD')
